@@ -3,6 +3,7 @@ using namespace std;
 
 //对于b[][] 1代表向左，2代表向右，3代表左上
 void lcs_length(const char* x, const char* y, int m, int n, int c[][100], int b[][100]) {
+	//i=0或者j=0c[i][j]为0
 	for (int i = 0; i <= m; i++)
 		c[i][0] = 0;
 	for (int i = 1; i <= n; i++)
