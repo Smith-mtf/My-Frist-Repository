@@ -2,7 +2,7 @@
 using namespace std;
 //自底向下
 void matrix_chain_order(int n, int p[], int m[][100], int s[][100]) {
-	//如果i为0或者j为0最大子序列为0
+	//如果i为0或者j为0开销为0
 	for (int i = 1; i <= n; i++)
 		m[i - 1][i - 1] = 0;
 	for (int l = 2; l <= n; l++) {
