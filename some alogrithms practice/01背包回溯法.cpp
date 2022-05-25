@@ -6,6 +6,7 @@ using namespace std;
 int n = 5;	//物品数量
 double P[100] = { 0,20,30,65,40,60 }; // 物品的价值
 double W[100] = { 0,10,20,30,40,50 }; // 物品的重量
+int item[100] = { 0,1,2,3,4,5 };	  // 物品的序号 
 double perp[100]; //单位物品的价值
 double M = 100;   //背包容量
 double fw, fp;	//背包装的最大价值和总重量
@@ -21,6 +22,7 @@ void knapsack() {
 				swap(perp[j], perp[j + 1]);
 				swap(P[j], P[j + 1]);
 				swap(W[j], W[j + 1]);
+				swap(item[j], item[j + 1]);
 			}
 }
 //返回当前节点可能取到的最大价值 
@@ -43,14 +45,14 @@ void bknap1() {
 	fp = -1;
 	while (1) {
 		while (k <= n && cw + W[k] <= M) {
-			cw += W[k]; cp += P[k]; Y[k] = 1; k++;	//先尽可能地遍历左孩子，并存储选择
+			cw += W[k]; cp += P[k]; Y[item[k]] = 1; k++;	//先尽可能地遍历左孩子，并存储选择
 		}
 		if (k > n) {
 			fp = cp; fw = cw; k = n;
 			for (int i = 1; i <= n; i++)			//如果k>n, 那么我们已经找到了最优解
 				X[i] = Y[i];
 		}
-		else Y[k] = 0;                              //如果k<=n那么物品k不能被放入背包，此时应该遍历他的右孩子（第k个物品不选择即Y[k] = 0）
+		else Y[item[k]] = 0;                              //如果k<=n那么物品k不能被放入背包，此时应该遍历他的右孩子（第k个物品不选择即Y[k] = 0）
 		while (bound(cp, cw, k) <= fp) {			//用bound检查是否有取到最大价值的可能性
 			while (k != 0 && Y[k] != 1)				//回溯到最近一个没有生成右孩子的节点
 				k--;	
@@ -66,7 +68,8 @@ int main() {
 	bknap1();
 	cout << fp << ' ' << fw << endl;
 	for (int i = 1; i <= n; i++)
-		cout << X[i]<<' ';
+		if(X[i] == 1)
+			cout<<i<<' ';
 }
 
 
