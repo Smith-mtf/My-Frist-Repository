@@ -1,4 +1,5 @@
 #include <iostream>
+#include<map>
 using namespace std;
 
 double weight[5] = { 10,20,30,40,50 };
